@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import userApi from '@/plugins/axios/modules/user'
 
 export default {
     name: "user",
@@ -40,14 +40,14 @@ export default {
         }
     },
     async fetch() {
-        return await axios.get(process.env.API_BASE_URL + '/users/' + this.$route.params.user_id)
+        await userApi.fetchUser(this.$route.params.user_id)
             .then(response => {
-                this.status = response.status;
-                this.profile = response.data;
+                this.status = 200;
+                this.profile = response;
             }).catch(e => {
                 this.status = e.response.status;
                 this.profile = 'API Error';
-            })
+            });
     },
     async mounted() {
     }

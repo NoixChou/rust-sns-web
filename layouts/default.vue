@@ -28,6 +28,23 @@
                     </template>
                     {{ item.title }}
                 </v-tooltip>
+                <v-tooltip right v-if="this.$auth.loggedIn">
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-list-item
+                            v-on="on"
+                            v-bind="attrs"
+                            to="/user/me"
+                            router
+                            exact
+                        >
+                            <v-list-item-action>
+                                <v-icon>mdi-account</v-icon>
+                            </v-list-item-action>
+                            <v-list-item-content>プロフィール</v-list-item-content>
+                        </v-list-item>
+                    </template>
+                    Setting
+                </v-tooltip>
                 <v-tooltip right>
                     <template v-slot:activator="{ on, attrs }">
                         <v-list-item
@@ -50,13 +67,14 @@
         <v-app-bar
             fixed
             app
-            :style="onMobile ? 'left: 0' : ''"
+            :style="on_mobile ? 'left: 0' : ''"
         >
             <v-toolbar-title v-text="title"/>
             <v-spacer/>
             <v-btn
                 outlined
                 @click.stop="login_panel = !login_panel"
+                v-if="!this.$auth.loggedIn"
             >
                 ログイン
             </v-btn>
@@ -64,12 +82,13 @@
                 class="ml-2"
                 color="primary"
                 @click.stop="register_panel = !register_panel"
+                v-if="!this.$auth.loggedIn"
             >
                 新規登録
             </v-btn>
         </v-app-bar>
         <v-main
-            :style="onMobile ? 'padding-left: 0' : ''"
+            :style="on_mobile ? 'padding-left: 0' : ''"
         >
             <v-container>
                 <Nuxt/>
@@ -102,13 +121,15 @@
                 </v-list>
             </v-card>
         </v-dialog>
-        <v-dialog
+        <UserLoginForm
             v-model="login_panel"
-            hide-overlay
-            transition="dialog-bottom-transition"
-        >
-
-        </v-dialog>
+            :fullscreen="on_mobile"
+        />
+        <UserRegisterForm
+            v-model="register_panel"
+            :fullscreen="on_mobile"
+            :step_begin="this.$auth.loggedIn ? 2 : 1"
+        />
         <v-footer
             app
         >
@@ -118,6 +139,9 @@
 </template>
 
 <script>
+
+import userApi from '@/plugins/axios/modules/user'
+
 export default {
     data() {
         return {
@@ -125,39 +149,42 @@ export default {
                 {
                     icon: 'mdi-apps',
                     title: 'Welcome',
-                    to: '/'
+                    to: '/',
                 },
                 {
                     icon: 'mdi-chart-bubble',
                     title: 'Inspire',
-                    to: '/inspire'
+                    to: '/inspire',
                 },
-                {
-                    icon: 'mdi-account',
-                    title: 'プロフィール',
-                    to: '/user/f48f1320-38ad-4bc6-95fe-4d6a1f0f5153'
-                }
             ],
             settings_panel: false,
             login_panel: false,
             register_panel: false,
             title: 'rust-sns',
-            onMobile: this.isMobileWidth(window.innerWidth),
+            on_mobile: this.isMobileWidth(window.innerWidth),
+        }
+    },
+    async fetch() {
+        if (this.$auth.loggedIn) {
+            await userApi.fetchMe()
+                .catch(() => {
+                    this.register_panel = true;
+                })
         }
     },
     methods: {
         onResize() {
-            this.onMobile = this.isMobileWidth(window.innerWidth);
+            this.on_mobile = this.isMobileWidth(window.innerWidth);
         },
         isMobileWidth(width) {
             return width < 960;
         }
     },
     mounted() {
-        window.addEventListener('resize', this.onResize)
+        window.addEventListener('resize', this.onResize);
     },
     beforeDestroy() {
-        window.removeEventListener('resize', this.onResize)
+        window.removeEventListener('resize', this.onResize);
     }
 }
 </script>

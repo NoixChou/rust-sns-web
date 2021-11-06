@@ -21,7 +21,9 @@ export default {
     css: [],
 
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-    plugins: [],
+    plugins: [
+        '@/plugins/axios/index'
+    ],
 
     // Auto import components: https://go.nuxtjs.dev/config-components
     components: true,
@@ -40,10 +42,19 @@ export default {
         '@nuxtjs/axios',
         // https://go.nuxtjs.dev/pwa
         '@nuxtjs/pwa',
+        '@nuxtjs/auth',
     ],
 
     // Axios module configuration: https://go.nuxtjs.dev/config-axios
-    axios: {},
+    axios: {
+        proxy: true,
+    },
+
+    proxy: {
+        '/api/': {
+            target: process.env.API_BASE
+        }
+    },
 
     // PWA module configuration: https://go.nuxtjs.dev/pwa
     pwa: {
@@ -83,10 +94,25 @@ export default {
         }
     },
 
+    auth: {
+        redirect: {
+            home: false,
+        },
+        strategies: {
+            local: {
+                endpoints: {
+                    login: {url: 'api/auth/login', method: 'post', propertyName: 'token'},
+                    user: {url: 'api/auth/me', method: 'get', propertyName: 'credential'},
+                    logout: false
+                },
+            }
+        }
+    },
+
     // Build Configuration: https://go.nuxtjs.dev/config-build
     build: {},
 
     env: {
-        API_BASE_URL: process.env.API_BASE_URL,
+        API_BASE: process.env.API_BASE,
     }
 }
