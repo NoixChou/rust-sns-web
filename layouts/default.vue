@@ -86,6 +86,13 @@
             >
                 新規登録
             </v-btn>
+            <v-btn
+                outlined
+                @click.stop="userLogout"
+                v-if="this.$auth.loggedIn"
+            >
+                ログアウト
+            </v-btn>
         </v-app-bar>
         <v-main
             :style="on_mobile ? 'padding-left: 0' : ''"
@@ -173,6 +180,9 @@ export default {
         }
     },
     methods: {
+        async userLogout() {
+            await this.$auth.logout();
+        },
         onResize() {
             this.on_mobile = this.isMobileWidth(window.innerWidth);
         },

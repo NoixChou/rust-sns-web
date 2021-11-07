@@ -103,7 +103,7 @@ export default {
                 endpoints: {
                     login: {url: 'api/auth/login', method: 'post', propertyName: 'token'},
                     user: {url: 'api/auth/me', method: 'get', propertyName: 'credential'},
-                    logout: false
+                    logout: {url: 'api/auth/logout', method: 'delete', propertyName: false},
                 },
             }
         }
