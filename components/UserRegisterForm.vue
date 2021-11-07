@@ -82,22 +82,32 @@
                         </v-container>
                     </v-form>
 
-                    <v-btn
-                        :disabled="!create_account.is_valid || create_account.on_creation"
-                        color="primary"
-                        @click="accountRegistration"
-                        :loading="create_account.on_creation"
-                    >
-                        作成
-                    </v-btn>
-
-                    <v-btn
-                        :disabled="create_account.on_creation"
-                        text
-                        @click="is_open = false"
-                    >
-                        キャンセル
-                    </v-btn>
+                    <v-row justify="center" align="center">
+                        <v-col cols="2">
+                            <v-btn
+                                :disabled="create_account.on_creation"
+                                text
+                                block
+                                @click="is_open = false"
+                            >
+                                キャンセル
+                            </v-btn>
+                        </v-col>
+                        <v-spacer></v-spacer>
+                        <v-col cols="4">
+                            <v-btn
+                                :disabled="!create_account.is_valid || create_account.on_creation"
+                                color="primary"
+                                block
+                                @click="accountRegistration"
+                                :loading="create_account.on_creation"
+                            >
+                                作成
+                            </v-btn>
+                        </v-col>
+                        <v-spacer></v-spacer>
+                        <v-spacer></v-spacer>
+                    </v-row>
                 </v-stepper-content>
 
                 <v-stepper-content step="2">
@@ -138,13 +148,18 @@
                         </v-container>
                     </v-form>
 
-                    <v-btn
-                        :disabled="!create_profile.is_valid"
-                        color="primary"
-                        @click="step = 3"
-                    >
-                        次へ
-                    </v-btn>
+                    <v-row justify="center" align="center">
+                        <v-col cols="4">
+                            <v-btn
+                                :disabled="!create_profile.is_valid"
+                                color="primary"
+                                block
+                                @click="step = 3"
+                            >
+                                次へ
+                            </v-btn>
+                        </v-col>
+                    </v-row>
                 </v-stepper-content>
 
                 <v-stepper-content step="3">
@@ -215,23 +230,32 @@
                             </v-row>
                         </v-container>
                     </v-form>
-
-                    <v-btn
-                        :disabled="!create_profile_additional.is_valid || create_profile_additional.on_creation"
-                        color="primary"
-                        @click="profileCreation"
-                        :loading="create_profile_additional.on_creation"
-                    >
-                        完了
-                    </v-btn>
-
-                    <v-btn
-                        :disabled="create_profile_additional.on_creation"
-                        text
-                        @click="step = 2"
-                    >
-                        戻る
-                    </v-btn>
+                    <v-row justify="center" align="center">
+                        <v-col cols="2">
+                            <v-btn
+                                :disabled="create_profile_additional.on_creation"
+                                text
+                                block
+                                @click="step = 2"
+                            >
+                                戻る
+                            </v-btn>
+                        </v-col>
+                        <v-spacer></v-spacer>
+                        <v-col cols="4">
+                            <v-btn
+                                :disabled="!create_profile_additional.is_valid || create_profile_additional.on_creation"
+                                color="primary"
+                                block
+                                @click="profileCreation"
+                                :loading="create_profile_additional.on_creation"
+                            >
+                                完了
+                            </v-btn>
+                        </v-col>
+                        <v-spacer></v-spacer>
+                        <v-spacer></v-spacer>
+                    </v-row>
                 </v-stepper-content>
 
                 <v-stepper-content step="4">

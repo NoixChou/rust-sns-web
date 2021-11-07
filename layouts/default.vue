@@ -43,7 +43,7 @@
                             <v-list-item-content>プロフィール</v-list-item-content>
                         </v-list-item>
                     </template>
-                    Setting
+                    プロフィール
                 </v-tooltip>
                 <v-tooltip right>
                     <template v-slot:activator="{ on, attrs }">
