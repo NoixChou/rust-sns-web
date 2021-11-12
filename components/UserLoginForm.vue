@@ -21,6 +21,7 @@
             <v-form
                 ref="login_form"
                 :disabled="on_process"
+                @submit.prevent="userLogin"
             >
                 <v-container>
                     <v-row justify="center" align="center">
@@ -54,7 +55,7 @@
                                 block
                                 color="primary"
                                 :disabled="!credentials.email || !credentials.password || on_process"
-                                @click="userLogin"
+                                type="submit"
                                 :loading="on_process"
                             >
                                 ログイン
@@ -110,6 +111,7 @@ export default {
     methods: {
         async userLogin() {
             this.on_process = true;
+            this.error = null;
 
             await this.$auth.loginWith('local', {
                 data: {
@@ -118,6 +120,7 @@ export default {
                 }
             }).then(() => {
                 this.is_open = false;
+                this.credentials.password = '';
             }).catch(e => {
                 if (e.response.status === 401) {
                     this.error = "メールアドレスまたはパスワードが間違っています。";

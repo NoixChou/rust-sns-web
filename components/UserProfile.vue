@@ -19,12 +19,12 @@
         <v-divider></v-divider>
         <v-card-text>
             <p>{{ profile.description }}</p>
-            <a :href="profile.website">{{ profile.website }}</a>
-            <span v-if="profile.birthday" class="text--darken-2">{{ new Date(profile.birthday).toLocaleDateString() }} 生まれ</span>
+            <a :href="profile.website" target="_blank" rel="noopener noreferrer">{{ profile.website }}</a>
+            <p v-if="profile.birthday" class="text--darken-2">{{ new Date(profile.birthday).toLocaleDateString() }} 生まれ</p>
         </v-card-text>
         <v-card-actions>
-            <v-btn :disabled="profile.is_private" plain>{{ Math.floor(Math.random() * 2) }} フォロー</v-btn>
-            <v-btn :disabled="profile.is_private" plain>{{ Math.floor(Math.random() * 2) }} フォロワー</v-btn>
+            <v-btn :disabled="profile.is_private" plain>{{ 0 }} フォロー</v-btn>
+            <v-btn :disabled="profile.is_private" plain>{{ 0 }} フォロワー</v-btn>
         </v-card-actions>
     </v-card>
     <v-card v-else>
