@@ -137,11 +137,6 @@
             :fullscreen="on_mobile"
             :step_begin="this.$auth.loggedIn ? 2 : 1"
         />
-        <v-footer
-            app
-        >
-            <span>&copy; {{ new Date().getFullYear() }}</span>
-        </v-footer>
     </v-app>
 </template>
 

@@ -1,5 +1,42 @@
 <template>
-    <v-card v-if="profile">
+    <v-card v-if="status === 0">
+        <v-card-title class="loading-text"><span>Display Name</span></v-card-title>
+        <v-card-subtitle class="loading-text"><span>Display Id Name</span></v-card-subtitle>
+        <v-divider></v-divider>
+        <v-card-text class="loading-text">
+            <v-sheet
+                height="5em"
+                width="100%"
+            ></v-sheet>
+        </v-card-text>
+        <v-card-actions>
+            <v-btn class="loading-text" disabled plain><span>フォロー</span></v-btn>
+            <v-btn class="loading-text" disabled plain><span>フォロワー</span></v-btn>
+        </v-card-actions>
+    </v-card>
+    <v-card v-else-if="status === 404">
+        <v-card-title>Not Found</v-card-title>
+        <v-card-text>
+            <v-container>
+                <v-row justify="center">
+                    <h3>ユーザーが見つかりませんでした。検索してみてください。</h3>
+                </v-row>
+                <v-row justify="center">
+                    <v-col cols="6">
+                        <v-text-field
+                            append-outer-icon="mdi-magnify"
+                            @click:append-outer=""
+                            clearable
+                        ></v-text-field>
+                    </v-col>
+                </v-row>
+            </v-container>
+        </v-card-text>
+    </v-card>
+    <v-card v-else-if="status !== 200 || !!!profile">
+        <v-card-title>Error</v-card-title>
+    </v-card>
+    <v-card v-else>
         <v-card-title>
             <span v-if="!is_edit">{{ profile.display_name }}</span>
             <span v-if="is_edit"><v-text-field
@@ -71,33 +108,32 @@
             <v-btn :disabled="profile.is_private" plain>{{ 0 }} フォロワー</v-btn>
         </v-card-actions>
     </v-card>
-    <v-card v-else>
-        <v-card-title class="loading-text"><span>Display Name</span></v-card-title>
-        <v-card-subtitle class="loading-text"><span>Display Id Name</span></v-card-subtitle>
-        <v-divider></v-divider>
-        <v-card-text class="loading-text">
-            <v-sheet
-                height="7em"
-                width="100%"
-            ></v-sheet>
-        </v-card-text>
-        <v-card-actions>
-            <v-btn class="loading-text" disabled plain><span>フォロー</span></v-btn>
-            <v-btn class="loading-text" disabled plain><span>フォロワー</span></v-btn>
-        </v-card-actions>
-    </v-card>
 </template>
 
 <script>
+import userApi from "@/plugins/axios/modules/user";
+
 export default {
     name: "UserProfile",
     data() {
         return {
             is_edit: false,
+            profile: {},
+            status: 0,
         }
     },
     props: {
-        profile: {},
+        user_id: String,
+    },
+    async fetch() {
+        await userApi.fetchUser(this.user_id)
+            .then(response => {
+                this.status = 200;
+                this.profile = response.user;
+            }).catch(e => {
+                this.status = e.response.status;
+                this.profile = 'API Error';
+            });
     },
 }
 </script>

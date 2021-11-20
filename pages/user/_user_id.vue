@@ -1,56 +1,21 @@
 <template>
-    <v-row justify="center" align="center">
-        <v-col cols="12" md="10" lg="6">
-            <UserProfile v-if="status === 0 || status === 200" :profile="profile.user"/>
-            <v-card v-else-if="status === 404">
-                <v-card-title>Not Found</v-card-title>
-                <v-card-text>
-                    <v-container>
-                        <v-row justify="center">
-                            <h3>ユーザーが見つかりませんでした。検索してみてください。</h3>
-                        </v-row>
-                        <v-row justify="center">
-                            <v-col cols="6">
-                                <v-text-field
-                                    append-outer-icon="mdi-magnify"
-                                    @click:append-outer=""
-                                    clearable
-                                ></v-text-field>
-                            </v-col>
-                        </v-row>
-                    </v-container>
-                </v-card-text>
-            </v-card>
-            <v-card v-else>
-                <v-card-title>Error</v-card-title>
-            </v-card>
-        </v-col>
-    </v-row>
+    <v-container>
+        <v-row justify="center" align="center">
+            <v-col cols="12" md="10" lg="6">
+                <UserProfile :user_id="this.$route.params.user_id"/>
+            </v-col>
+        </v-row>
+        <v-row justify="center" align="center" class="mt-2">
+            <v-col cols="12" md="10" lg="6" class="pt-0">
+                <UserPostList :user_id="this.$route.params.user_id"/>
+            </v-col>
+        </v-row>
+    </v-container>
 </template>
 
 <script>
-import userApi from '@/plugins/axios/modules/user'
-
 export default {
     name: "user",
-    data() {
-        return {
-            status: 0,
-            profile: {},
-        }
-    },
-    async fetch() {
-        await userApi.fetchUser(this.$route.params.user_id)
-            .then(response => {
-                this.status = 200;
-                this.profile = response;
-            }).catch(e => {
-                this.status = e.response.status;
-                this.profile = 'API Error';
-            });
-    },
-    async mounted() {
-    }
 }
 </script>
 
