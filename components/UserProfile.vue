@@ -1,7 +1,13 @@
 <template>
     <v-card v-if="profile">
         <v-card-title>
-            <span>{{ profile.display_name }}</span>
+            <span v-if="!is_edit">{{ profile.display_name }}</span>
+            <span v-if="is_edit"><v-text-field
+                v-model="profile.display_name"
+                class="py-0 my-0"
+                hide-details="auto"
+                height="2rem"
+            ></v-text-field></span>
             <v-tooltip right>
                 <template v-slot:activator="{ on, attrs }">
                     <v-icon
@@ -15,12 +21,50 @@
                 <span>private</span>
             </v-tooltip>
         </v-card-title>
-        <v-card-subtitle><span>{{ profile.id_name }}</span></v-card-subtitle>
+        <v-card-subtitle>
+            <span>{{ profile.id_name }}</span>
+        </v-card-subtitle>
         <v-divider></v-divider>
-        <v-card-text>
-            <p>{{ profile.description }}</p>
-            <a :href="profile.website" target="_blank" rel="noopener noreferrer">{{ profile.website }}</a>
-            <p v-if="profile.birthday" class="text--darken-2">{{ new Date(profile.birthday).toLocaleDateString() }} 生まれ</p>
+        <v-card-text class="pb-0" style="position: relative;">
+            <v-btn
+                @click.prevent="is_edit = !is_edit"
+                :color="is_edit ? '' : 'primary'"
+                absolute
+                top
+                right
+                small
+                fab
+            >
+                <v-icon>{{ is_edit ? 'mdi-close' : 'mdi-pencil' }}</v-icon>
+            </v-btn>
+            <p v-if="!is_edit" class="mb-6">{{ profile.description }}</p>
+            <v-textarea
+                v-if="is_edit"
+                v-model="profile.description"
+                class="mb-6"
+                hide-details="auto"
+                rows="2"
+                auto-grow
+            ></v-textarea>
+            <p class="mb-1">
+                <span v-if="!is_edit && !!profile.website">
+                    <v-icon dense left>mdi-home-city</v-icon>
+                    <a :href="profile.website" target="_blank" rel="noopener noreferrer">{{ profile.website }}</a>
+                </span>
+                <v-text-field
+                    v-if="is_edit"
+                    v-model="profile.website"
+                    class="py-0 my-0"
+                    prepend-icon="mdi-home-city"
+                    dense
+                    hide-details="auto"
+                    height="2rem"
+                ></v-text-field>
+            </p>
+            <p v-if="profile.birthday" class="mb-0 text--darken-2">
+                <v-icon dense left>mdi-cake-variant</v-icon>
+                {{ new Date(profile.birthday).toLocaleDateString() }}
+            </p>
         </v-card-text>
         <v-card-actions>
             <v-btn :disabled="profile.is_private" plain>{{ 0 }} フォロー</v-btn>
@@ -47,6 +91,11 @@
 <script>
 export default {
     name: "UserProfile",
+    data() {
+        return {
+            is_edit: false,
+        }
+    },
     props: {
         profile: {},
     },
