@@ -13,8 +13,11 @@
                     <v-spacer></v-spacer>
                     <span class="text-body-2 text--secondary">{{ $format_date(post.published_at) }}</span>
                 </v-card-title>
-                <v-card-text class="text-body-1 text--primary">
-                    {{ post.content }}
+                <v-card-text
+                    class="text-body-1 text--primary"
+                    style="white-space: pre-wrap;"
+                    v-text="post.content"
+                >
                 </v-card-text>
                 <v-card-actions>
                     <v-row justify="center" align="center" class="text-center">
