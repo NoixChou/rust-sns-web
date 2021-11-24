@@ -1,0 +1,70 @@
+{
+    "general": {
+        "title": "rust-sns",
+        "home": "Home",
+        "profile": "Profile",
+        "share": "Share",
+        "copy_link": "Copy link",
+        "create": "Create",
+        "complete": "Complete",
+        "completed": "Completed",
+        "cancel": "Cancel",
+        "next": "Next",
+        "back": "Back",
+        "settings": {
+            "setting": "Setting"
+        },
+        "language": {
+            "en": "English",
+            "ja": "Japanese (日本語)"
+        },
+        "messages": {
+            "something_error": "Something went wrong. Please try again later",
+            "validation": {
+                "required": "Required item",
+                "min_length": "Least {0} characters are required",
+                "max_length": "Should input {0} characters or less",
+                "invalid_email": "Enter a valid email address",
+                "password_mismatch": "Password doesn't match",
+                "future_birthday": "Are you from the future, sir?"
+            }
+        }
+    },
+    "profile": {
+        "follow": "Follows",
+        "follower": "Follower",
+        "display_name": "Name",
+        "id_name": "ID",
+        "description": "Introduction",
+        "birthday": "Birthday",
+        "website": "Website",
+        "private": "Make profile private",
+        "public_description": "All people can see your profile, posts, and birthday.",
+        "private_description": "Only people who are f4f you will be able to see your posts and birthday.",
+        "messages": {
+            "not_found": "User not found. Try searching."
+        }
+    },
+    "post": {
+        "post": "Post",
+        "posts": "Posts",
+        "reply": "Reply",
+        "like": "Favorite",
+        "other": "Other",
+        "nothing": "This user has not posted yet."
+    },
+    "account": {
+        "login": "Login",
+        "logout": "Logout",
+        "register": "register",
+        "create": "Register account",
+        "input_profile": "Input profile",
+        "input_additional_profile": "Input additional info",
+        "email": "E-mail",
+        "password": "Password",
+        "password_confirm": "Confirm Password",
+        "messages": {
+            "wrong_ids": "Email or password is incorrect."
+        }
+    }
+}

@@ -1,6 +1,6 @@
 <template>
     <v-card :loading="status !== 200">
-        <v-card-title class="text-body-1">投稿</v-card-title>
+        <v-card-title class="text-body-1">{{ $t('post.posts') }}</v-card-title>
         <v-divider></v-divider>
         <PostList
             v-if="posts.length > 0"
@@ -9,7 +9,7 @@
         <v-card-text
             v-else-if="status === 200"
         >
-            まだ何も投稿していません
+            {{ $t('post.nothing') }}
         </v-card-text>
     </v-card>
 </template>

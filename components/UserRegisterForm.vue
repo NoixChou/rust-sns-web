@@ -1,6 +1,7 @@
 <template>
     <v-dialog
         v-model="is_open"
+        width="100%"
         max-width="1200px"
         :fullscreen="fullscreen"
         :persistent="4 > step && step > 1"
@@ -12,7 +13,7 @@
                     :complete="step > 1"
                     step="1"
                 >
-                    アカウント作成
+                    {{ $t('account.create') }}
                 </v-stepper-step>
 
                 <v-divider></v-divider>
@@ -21,7 +22,7 @@
                     :complete="step > 2"
                     step="2"
                 >
-                    プロフィール入力
+                    {{ $t('account.input_profile') }}
                 </v-stepper-step>
 
                 <v-divider></v-divider>
@@ -30,7 +31,7 @@
                     :complete="step > 3"
                     step="3"
                 >
-                    追加情報入力
+                    {{ $t('account.input_additional_profile') }}
                 </v-stepper-step>
 
                 <v-divider></v-divider>
@@ -38,7 +39,7 @@
                 <v-stepper-step
                     step="4"
                 >
-                    完了
+                    {{ $t('general.complete') }}
                 </v-stepper-step>
             </v-stepper-header>
             <v-stepper-items>
@@ -55,7 +56,7 @@
                                     <v-text-field
                                         v-model="create_account.user.email"
                                         prepend-icon="mdi-email"
-                                        label="メールアドレス"
+                                        :label="$t('account.email')"
                                         :rules="create_account.validation.email"
                                     ></v-text-field>
                                 </v-col>
@@ -66,7 +67,7 @@
                                         v-model="create_account.user.password"
                                         type="password"
                                         prepend-icon="mdi-lock"
-                                        label="パスワード"
+                                        :label="$t('account.password')"
                                         :rules="create_account.validation.password"
                                     ></v-text-field>
                                 </v-col>
@@ -75,7 +76,7 @@
                                         v-model="create_account.user.confirm_password"
                                         type="password"
                                         prepend-icon="mdi-lock-check"
-                                        label="パスワード (確認)"
+                                        :label="$t('account.password_confirm')"
                                         :rules="create_account.validation.confirm_password"
                                     ></v-text-field>
                                 </v-col>
@@ -88,7 +89,7 @@
                                         block
                                         @click="is_open = false"
                                     >
-                                        キャンセル
+                                        {{ $t('general.cancel') }}
                                     </v-btn>
                                 </v-col>
                                 <v-spacer></v-spacer>
@@ -100,7 +101,7 @@
                                         type="submit"
                                         :loading="create_account.on_creation"
                                     >
-                                        作成
+                                        {{ $t('general.create') }}
                                     </v-btn>
                                 </v-col>
                                 <v-spacer></v-spacer>
@@ -124,14 +125,14 @@
                                 <v-col cols="12" md="6">
                                     <v-text-field
                                         v-model="create_profile.profile.display_name"
-                                        label="表示名"
+                                        :label="$t('profile.display_name')"
                                         :rules="create_profile.validation.display_name"
                                     ></v-text-field>
                                 </v-col>
                                 <v-col cols="12" md="6">
                                     <v-text-field
                                         v-model="create_profile.profile.id_name"
-                                        label="ID名"
+                                        :label="$t('profile.id_name')"
                                         prefix="@"
                                         :rules="create_profile.validation.id_name"
                                     ></v-text-field>
@@ -141,7 +142,7 @@
                                 <v-col cols="12">
                                     <v-textarea
                                         v-model="create_profile.profile.description"
-                                        label="自己紹介"
+                                        :label="$t('profile.description')"
                                         counter
                                         auto-grow
                                         :rules="create_profile.validation.description"
@@ -156,7 +157,7 @@
                                         block
                                         type="submit"
                                     >
-                                        次へ
+                                        {{ $t('general.next') }}
                                     </v-btn>
                                 </v-col>
                             </v-row>
@@ -195,7 +196,7 @@
                                                 <v-text-field
                                                     v-model="create_profile.profile.birthday"
                                                     :disabled="!create_profile.profile.input_birthday"
-                                                    label="誕生日"
+                                                    :label="$t('profile.birthday')"
                                                     prepend-icon="mdi-cake-variant"
                                                     v-bind="attrs"
                                                     v-on="on"
@@ -218,7 +219,7 @@
                                 <v-col cols="12" md="6">
                                     <v-text-field
                                         v-model="create_profile.profile.website"
-                                        label="ホームページ"
+                                        :label="$t('profile.website')"
                                         :rules="create_profile.validation.website"
                                     ></v-text-field>
                                 </v-col>
@@ -227,8 +228,8 @@
                                 <v-col cols="12" md="6">
                                     <v-checkbox
                                         v-model="create_profile.profile.is_private"
-                                        label="非公開アカウント"
-                                        :hint="create_profile.profile.is_private ? `相互フォローしている人しかプロフィール、投稿、誕生日を見ることができません。` : `誰でもプロフィール、投稿、誕生日を見ることができます。`"
+                                        :label="$t('profile.private')"
+                                        :hint="create_profile.profile.is_private ? $t('profile.private_description') : $t('profile.public_description')"
                                         persistent-hint
                                     ></v-checkbox>
                                 </v-col>
@@ -241,7 +242,7 @@
                                         block
                                         @click="step = 2"
                                     >
-                                        戻る
+                                        {{ $t('general.back') }}
                                     </v-btn>
                                 </v-col>
                                 <v-spacer></v-spacer>
@@ -253,7 +254,7 @@
                                         type="submit"
                                         :loading="create_profile_additional.on_creation"
                                     >
-                                        完了
+                                        {{ $t('general.complete') }}
                                     </v-btn>
                                 </v-col>
                                 <v-spacer></v-spacer>
@@ -270,7 +271,7 @@
                             <v-icon x-large>mdi-check-circle</v-icon>
                         </v-row>
                         <v-row justify="center" align="center">
-                            <h2>完了</h2>
+                            <h2>{{ $t('general.completed') }}</h2>
                         </v-row>
                     </v-container>
                 </v-stepper-content>
@@ -283,10 +284,6 @@
 
 import authApi from '@/plugins/axios/modules/auth'
 import userApi from '@/plugins/axios/modules/user'
-
-const required = v => !!v || '必須項目です';
-const minLength = (v, min) => v.length >= min || (min.toString() + '文字以上必要です');
-const maxLength = (v, max) => v.length <= max || (max.toString() + '文字以内で入力してください');
 
 export default {
     name: "UserRegisterForm",
@@ -321,16 +318,16 @@ export default {
                 },
                 validation: {
                     email: [
-                        v => required(v),
-                        v => /.+@.+\..+/.test(v) || '有効なメールアドレスを入力してください',
+                        v => this.required(v),
+                        v => /.+@.+\..+/.test(v) || this.$t('general.messages.validation.invalid_email'),
                     ],
                     password: [
-                        v => required(v),
-                        v => minLength(v, 8)
+                        v => this.required(v),
+                        v => this.minLength(v, 8)
                     ],
                     confirm_password: [
-                        v => required(v),
-                        v => (this.create_account.user.password === v) || 'パスワードが一致しません'
+                        v => this.required(v),
+                        v => (this.create_account.user.password === v) || this.$t('general.messages.validation.password_mismatch')
                     ]
                 }
             },
@@ -347,23 +344,23 @@ export default {
                 },
                 validation: {
                     id_name: [
-                        v => required(v),
-                        v => minLength(v, 3),
-                        v => maxLength(v, 20)
+                        v => this.required(v),
+                        v => this.minLength(v, 3),
+                        v => this.maxLength(v, 20)
                     ],
                     display_name: [
-                        v => required(v),
-                        v => minLength(v, 1),
-                        v => maxLength(v, 100)
+                        v => this.required(v),
+                        v => this.minLength(v, 1),
+                        v => this.maxLength(v, 100)
                     ],
                     description: [
-                        v => maxLength(v, 300)
+                        v => this.maxLength(v, 300)
                     ],
                     birthday: [
-                        v => (!this.create_profile.profile.input_birthday || (new Date(Date.parse(v))) < (new Date(Date.now()))) || 'あなたは未来人ですか！？',
+                        v => (!this.create_profile.profile.input_birthday || (new Date(Date.parse(v))) < (new Date(Date.now()))) || this.$t('general.messages.validation.future_birthday'),
                     ],
                     website: [
-                        v => maxLength(v, 100)
+                        v => this.maxLength(v, 100)
                     ]
                 }
             },
@@ -433,6 +430,15 @@ export default {
                 });
 
             this.create_profile_additional.on_creation = false;
+        },
+        required(v) {
+            return !!v || this.$t('general.messages.validation.required');
+        },
+        minLength(v, min) {
+            return v.length >= min || this.$t('general.messages.validation.min_length', [min]);
+        },
+        maxLength(v, max) {
+            return v.length <= max || this.$t('general.messages.validation.max_length', [max]);
         }
     }
 }

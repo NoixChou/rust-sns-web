@@ -10,8 +10,8 @@
             ></v-sheet>
         </v-card-text>
         <v-card-actions>
-            <v-btn class="loading-text" disabled plain><span>フォロー</span></v-btn>
-            <v-btn class="loading-text" disabled plain><span>フォロワー</span></v-btn>
+            <v-btn class="loading-text" disabled plain><span>{{ $t('profile.follow') }}</span></v-btn>
+            <v-btn class="loading-text" disabled plain><span>{{ $t('profile.follower') }}</span></v-btn>
         </v-card-actions>
     </v-card>
     <v-card v-else-if="status === 404">
@@ -19,7 +19,7 @@
         <v-card-text>
             <v-container>
                 <v-row justify="center">
-                    <h3>ユーザーが見つかりませんでした。検索してみてください。</h3>
+                    <h3>{{ $t('profile.messages.not_found') }}</h3>
                 </v-row>
                 <v-row justify="center">
                     <v-col cols="6">
@@ -104,8 +104,8 @@
             </p>
         </v-card-text>
         <v-card-actions>
-            <v-btn :disabled="profile.is_private" plain>{{ 0 }} フォロー</v-btn>
-            <v-btn :disabled="profile.is_private" plain>{{ 0 }} フォロワー</v-btn>
+            <v-btn :disabled="profile.is_private" plain>{{ 0 }} {{ $t('profile.follow') }}</v-btn>
+            <v-btn :disabled="profile.is_private" plain>{{ 0 }} {{ $t('profile.follower') }}</v-btn>
         </v-card-actions>
     </v-card>
 </template>

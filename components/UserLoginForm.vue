@@ -1,6 +1,7 @@
 <template>
     <v-dialog
         v-model="is_open"
+        width="100%"
         max-width="700px"
         :fullscreen="fullscreen"
         transition="dialog-bottom-transition"
@@ -8,7 +9,7 @@
         <v-card>
             <v-toolbar>
                 <v-spacer></v-spacer>
-                <v-toolbar-title>ログイン</v-toolbar-title>
+                <v-toolbar-title>{{ $t('account.login') }}</v-toolbar-title>
                 <v-spacer></v-spacer>
             </v-toolbar>
             <v-alert
@@ -16,7 +17,7 @@
                 type="error"
                 icon="mdi-alert-circle"
                 tile
-            >{{ error }}
+            >{{ $t(error) }}
             </v-alert>
             <v-form
                 ref="login_form"
@@ -25,32 +26,26 @@
             >
                 <v-container>
                     <v-row justify="center" align="center">
-                        <v-col
-                            cols="10" md="6"
-                        >
+                        <v-col cols="10" md="6">
                             <v-text-field
                                 v-model="credentials.email"
                                 prepend-icon="mdi-email"
-                                label="メールアドレス"
+                                :label="$t('account.email')"
                             ></v-text-field>
                         </v-col>
                     </v-row>
                     <v-row justify="center" align="center">
-                        <v-col
-                            cols="10" md="6"
-                        >
+                        <v-col cols="10" md="6">
                             <v-text-field
                                 v-model="credentials.password"
                                 type="password"
                                 prepend-icon="mdi-lock"
-                                label="パスワード"
+                                :label="$t('account.password')"
                             ></v-text-field>
                         </v-col>
                     </v-row>
                     <v-row justify="center" align="center">
-                        <v-col
-                            cols="8" md="6"
-                        >
+                        <v-col cols="8" md="6">
                             <v-btn
                                 block
                                 color="primary"
@@ -58,20 +53,18 @@
                                 type="submit"
                                 :loading="on_process"
                             >
-                                ログイン
+                                {{ $t('account.login') }}
                             </v-btn>
                         </v-col>
                     </v-row>
                     <v-row justify="center" align="center" v-if="fullscreen">
-                        <v-col
-                            cols="8" md="6"
-                        >
+                        <v-col cols="8" md="6">
                             <v-btn
                                 block
                                 text
                                 @click="is_open = false"
                             >
-                                キャンセル
+                                {{ $t('general.cancel') }}
                             </v-btn>
                         </v-col>
                     </v-row>
@@ -123,9 +116,9 @@ export default {
                 this.credentials.password = '';
             }).catch(e => {
                 if (e.response.status === 401) {
-                    this.error = "メールアドレスまたはパスワードが間違っています。";
+                    this.error = "account.messages.wrong_ids";
                 } else {
-                    this.error = "問題が発生しました。しばらくしてからお試しください。";
+                    this.error = "general.messages.something_error";
                 }
             });
 

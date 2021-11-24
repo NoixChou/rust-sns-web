@@ -16,7 +16,7 @@
                         <v-list-item
                             v-on="on"
                             v-bind="attrs"
-                            :to="item.to"
+                            :to="localePath(item.to)"
                             router
                             exact
                         >
@@ -33,17 +33,17 @@
                         <v-list-item
                             v-on="on"
                             v-bind="attrs"
-                            to="/user/me"
+                            :to="localePath('/user/me')"
                             router
                             exact
                         >
                             <v-list-item-action>
                                 <v-icon>mdi-account</v-icon>
                             </v-list-item-action>
-                            <v-list-item-content>プロフィール</v-list-item-content>
+                            <v-list-item-content>{{ $t('general.profile') }}</v-list-item-content>
                         </v-list-item>
                     </template>
-                    プロフィール
+                    {{ $t('general.profile') }}
                 </v-tooltip>
                 <v-tooltip right>
                     <template v-slot:activator="{ on, attrs }">
@@ -57,10 +57,10 @@
                             <v-list-item-action>
                                 <v-icon>mdi-cog</v-icon>
                             </v-list-item-action>
-                            <v-list-item-content>Setting</v-list-item-content>
+                            <v-list-item-content>{{ $t('general.settings.setting') }}</v-list-item-content>
                         </v-list-item>
                     </template>
-                    Setting
+                    {{ $t('general.settings.setting') }}
                 </v-tooltip>
             </v-list>
         </v-navigation-drawer>
@@ -76,7 +76,7 @@
                 @click.stop="login_panel = !login_panel"
                 v-if="!this.$auth.loggedIn"
             >
-                ログイン
+                {{ $t('account.login') }}
             </v-btn>
             <v-btn
                 class="ml-2"
@@ -84,14 +84,14 @@
                 @click.stop="register_panel = !register_panel"
                 v-if="!this.$auth.loggedIn"
             >
-                新規登録
+                {{ $t('account.register') }}
             </v-btn>
             <v-btn
                 outlined
                 @click.stop="userLogout"
                 v-if="this.$auth.loggedIn"
             >
-                ログアウト
+                {{ $t('account.logout') }}
             </v-btn>
         </v-app-bar>
         <v-main
@@ -150,19 +150,14 @@ export default {
             items: [
                 {
                     icon: 'mdi-apps',
-                    title: 'Welcome',
+                    title: this.$t('general.home'),
                     to: '/',
-                },
-                {
-                    icon: 'mdi-chart-bubble',
-                    title: 'Inspire',
-                    to: '/inspire',
                 },
             ],
             settings_panel: false,
             login_panel: false,
             register_panel: false,
-            title: 'rust-sns',
+            title: this.$t('general.title'),
             on_mobile: this.isMobileWidth(window.innerWidth),
         }
     },

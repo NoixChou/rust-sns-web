@@ -1,0 +1,70 @@
+{
+    "general": {
+        "title": "rust-sns",
+        "home": "ホーム",
+        "profile": "プロフィール",
+        "share": "共有",
+        "copy_link": "リンクをコピー",
+        "create": "作成",
+        "complete": "完了",
+        "completed": "完了",
+        "cancel": "キャンセル",
+        "next": "次へ",
+        "back": "戻る",
+        "settings": {
+            "setting": "設定"
+        },
+        "language": {
+            "en": "英語 (English)",
+            "ja": "日本語"
+        },
+        "messages": {
+            "something_error": "問題が発生しました。しばらくしてからお試しください。",
+            "validation": {
+                "required": "必須項目です",
+                "min_length": "{0}文字以上必要です",
+                "max_length": "{0}文字以内で入力してください",
+                "invalid_email": "有効なメールアドレスを入力してください",
+                "password_mismatch": "パスワードが一致しません",
+                "future_birthday": "あなたは未来人ですか？"
+            }
+        }
+    },
+    "profile": {
+        "follow": "フォロー",
+        "follower": "フォロワー",
+        "display_name": "表示名",
+        "id_name": "ID名",
+        "description": "自己紹介",
+        "birthday": "誕生日",
+        "website": "ホームページ",
+        "private": "非公開アカウント",
+        "public_description": "誰でもプロフィール、投稿、誕生日を見ることができます。",
+        "private_description": "相互フォローしている人しかプロフィール、投稿、誕生日を見ることができません。",
+        "messages": {
+            "not_found": "ユーザーが見つかりませんでした。検索してみてください。"
+        }
+    },
+    "post": {
+        "post": "投稿",
+        "posts": "投稿",
+        "reply": "返信",
+        "like": "お気に入り",
+        "other": "その他",
+        "nothing": "まだ何も投稿していません"
+    },
+    "account": {
+        "login": "ログイン",
+        "logout": "ログアウト",
+        "register": "新規登録",
+        "create": "アカウント作成",
+        "input_profile": "プロフィール入力",
+        "input_additional_profile": "追加情報入力",
+        "email": "メールアドレス",
+        "password": "パスワード",
+        "password_confirm": "パスワード (確認)",
+        "messages": {
+            "wrong_ids": "メールアドレスまたはパスワードが間違っています。"
+        }
+    }
+}

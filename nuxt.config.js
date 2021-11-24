@@ -23,7 +23,7 @@ export default {
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
     plugins: [
         '@/plugins/axios/index',
-        '@/plugins/date_format'
+        '@/plugins/date_format',
     ],
 
     // Auto import components: https://go.nuxtjs.dev/config-components
@@ -44,6 +44,7 @@ export default {
         // https://go.nuxtjs.dev/pwa
         '@nuxtjs/pwa',
         '@nuxtjs/auth',
+        '@nuxtjs/i18n',
     ],
 
     // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -60,7 +61,7 @@ export default {
     // PWA module configuration: https://go.nuxtjs.dev/pwa
     pwa: {
         manifest: {
-            lang: 'en'
+            lang: 'ja'
         }
     },
 
@@ -97,6 +98,7 @@ export default {
 
     auth: {
         redirect: {
+            logout: '/',
             home: '/user/me',
         },
         strategies: {
@@ -107,7 +109,25 @@ export default {
                     logout: {url: 'api/auth/logout', method: 'delete', propertyName: false},
                 },
             }
-        }
+        },
+        plugins: [
+            '@/plugins/rewrite_auth_redirect'
+        ]
+    },
+
+    i18n: {
+        locales: [
+            { code: 'ja', name: 'Japanese', iso: 'ja_JP', file: 'ja.json' },
+            { code: 'en', name: 'English', iso: 'en-US', file: 'en.json' }
+        ],
+        defaultLocale: 'ja',
+        langDir: 'locales/',
+        strategy: 'prefix_and_default',
+        vueI18n: {
+            fallbackLocale: 'en'
+        },
+        vueI18nLoader: true,
+        lazy: true
     },
 
     // Build Configuration: https://go.nuxtjs.dev/config-build
