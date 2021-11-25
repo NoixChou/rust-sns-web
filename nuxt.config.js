@@ -124,7 +124,7 @@ export default {
         langDir: 'locales/',
         strategy: 'prefix_and_default',
         vueI18n: {
-            fallbackLocale: 'en'
+            fallbackLocale: 'ja'
         },
         vueI18nLoader: true,
         lazy: true

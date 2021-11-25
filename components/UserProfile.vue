@@ -64,6 +64,19 @@
         <v-divider></v-divider>
         <v-card-text class="pb-0" style="position: relative;">
             <v-btn
+                v-if="is_edit"
+                @click.prevent="is_edit = false"
+                color="primary"
+                class="mr-15"
+                absolute
+                top
+                right
+                small
+                fab
+            >
+                <v-icon>mdi-check</v-icon>
+            </v-btn>
+            <v-btn
                 @click.prevent="is_edit = !is_edit"
                 :color="is_edit ? '' : 'primary'"
                 absolute
