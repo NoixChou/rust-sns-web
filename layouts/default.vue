@@ -120,3 +120,32 @@ export default {
     }
 }
 </script>
+
+<!--suppress CssUnresolvedCustomProperty -->
+<style>
+@keyframes animate-loading-text-bg {
+    0% {
+        opacity: 0;
+        background-position-x: 100%;
+    }
+    20% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        background-position-x: -100%;
+    }
+}
+
+.loading-text * {
+    display: inline-block;
+    background: linear-gradient(45deg, transparent 40%, var(--v-accent-base) 50%, transparent 60%);
+    background-size: 200% 200%;
+    background-clip: content-box;
+    border: none;
+    border-radius: .6rem;
+    animation: animate-loading-text-bg 1s linear infinite;
+    color: transparent;
+}
+
+</style>

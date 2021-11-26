@@ -14,25 +14,7 @@
             <v-btn class="loading-text" disabled plain><span>{{ $t('profile.follower') }}</span></v-btn>
         </v-card-actions>
     </v-card>
-    <v-card v-else-if="status === 404">
-        <v-card-title>Not Found</v-card-title>
-        <v-card-text>
-            <v-container>
-                <v-row justify="center">
-                    <h3>{{ $t('profile.messages.not_found') }}</h3>
-                </v-row>
-                <v-row justify="center">
-                    <v-col cols="6">
-                        <v-text-field
-                            append-outer-icon="mdi-magnify"
-                            @click:append-outer=""
-                            clearable
-                        ></v-text-field>
-                    </v-col>
-                </v-row>
-            </v-container>
-        </v-card-text>
-    </v-card>
+    <NotFoundWithSearch v-else-if="status === 404"/>
     <v-card v-else-if="status !== 200 || !!!profile">
         <v-card-title>Error</v-card-title>
     </v-card>
@@ -129,9 +111,11 @@
 
 <script>
 import userApi from "@/plugins/axios/modules/user";
+import NotFoundWithSearch from "@/components/NotFoundWithSearch";
 
 export default {
     name: "UserProfile",
+    components: {NotFoundWithSearch},
     data() {
         return {
             is_edit: false,
@@ -155,31 +139,3 @@ export default {
 }
 </script>
 
-<!--suppress CssUnresolvedCustomProperty -->
-<style scoped>
-@keyframes animate-loading-text-bg {
-    0% {
-        opacity: 0;
-        background-position-x: 100%;
-    }
-    20% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-        background-position-x: -100%;
-    }
-}
-
-.loading-text * {
-    display: inline-block;
-    background: linear-gradient(45deg, transparent 40%, var(--v-accent-base) 50%, transparent 60%);
-    background-size: 200% 200%;
-    background-clip: content-box;
-    border: none;
-    border-radius: .6rem;
-    animation: animate-loading-text-bg 1s linear infinite;
-    color: transparent;
-}
-
-</style>

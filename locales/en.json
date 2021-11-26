@@ -20,6 +20,7 @@
         },
         "messages": {
             "something_error": "Something went wrong. Please try again later",
+            "not_found_try_search": "Not found. Try searching.",
             "validation": {
                 "required": "Required item",
                 "min_length": "Least {0} characters are required",
@@ -40,10 +41,7 @@
         "website": "Website",
         "private": "Make profile private",
         "public_description": "All people can see your profile, posts, and birthday.",
-        "private_description": "Only people who are f4f you will be able to see your posts and birthday.",
-        "messages": {
-            "not_found": "User not found. Try searching."
-        }
+        "private_description": "Only people who are f4f you will be able to see your posts and birthday."
     },
     "post": {
         "post": "Post",

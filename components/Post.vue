@@ -1,7 +1,53 @@
 <template>
     <v-container class="pa-0">
         <v-divider v-if="header_divide"></v-divider>
-        <NuxtLink :to="`/post/` + post.id" custom v-slot="{ navigate }">
+        <v-card v-if="status === 0" elevation="0">
+            <v-card-title class="text-body-1 loading-text">
+                <span class="font-weight-bold">Display name</span>
+                <span>@id name</span>
+                <v-spacer></v-spacer>
+                <span class="text-body-2">0000/00/00</span>
+            </v-card-title>
+            <v-card-text
+                class="text-body-1 loading-text"
+            >
+                <v-sheet
+                    height="3em"
+                    width="100%"
+                ></v-sheet>
+            </v-card-text>
+            <v-card-actions>
+                <v-row justify="center" align="center" class="text-center">
+                    <v-col>
+                        <v-btn icon @click.stop disabled>
+                            <v-icon>mdi-reply</v-icon>
+                        </v-btn>
+                    </v-col>
+                    <v-col>
+                        <v-btn icon @click.stop disabled>
+                            <v-icon>mdi-heart</v-icon>
+                        </v-btn>
+                    </v-col>
+                    <v-col>
+                        <v-btn icon @click.stop disabled>
+                            <v-icon>mdi-dots-horizontal</v-icon>
+                        </v-btn>
+                    </v-col>
+                </v-row>
+            </v-card-actions>
+        </v-card>
+        <NotFoundWithSearch v-else-if="status === 404"/>
+        <v-card v-else-if="status !== 200 || !!!post" elevation="0">
+            <v-card-title>
+                Error
+            </v-card-title>
+        </v-card>
+        <NuxtLink
+            v-else
+            :to="`/post/` + post.id"
+            custom
+            v-slot="{ navigate }"
+        >
             <v-card elevation="0" @click="navigate">
                 <v-card-title class="text-body-1">
                     <NuxtLink :to="`/user/` + user.id" custom v-slot="{ navigate }">
@@ -63,6 +109,7 @@ export default {
     },
     async fetch() {
         if (!!this.prefetched_post) {
+            this.status = 200;
             this.post = this.prefetched_post;
             this.user = this.prefetched_user;
             return;

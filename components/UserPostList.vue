@@ -1,5 +1,5 @@
 <template>
-    <v-card :loading="status !== 200">
+    <v-card v-if="status === 200 || status === 0" :loading="status !== 200">
         <v-card-title class="text-body-1">{{ $t('post.posts') }}</v-card-title>
         <v-divider></v-divider>
         <PostList
