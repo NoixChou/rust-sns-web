@@ -39,12 +39,14 @@
     <v-card v-else>
         <v-card-title>
             <span v-if="!is_edit">{{ profile.display_name }}</span>
-            <span v-if="is_edit"><v-text-field
-                v-model="profile.display_name"
-                class="py-0 my-0"
-                hide-details="auto"
-                height="2rem"
-            ></v-text-field></span>
+            <span v-if="is_edit">
+                <v-text-field
+                    v-model="profile.display_name"
+                    class="py-0 my-0"
+                    hide-details="auto"
+                    height="2rem"
+                ></v-text-field>
+            </span>
             <v-tooltip right>
                 <template v-slot:activator="{ on, attrs }">
                     <v-icon
@@ -63,30 +65,32 @@
         </v-card-subtitle>
         <v-divider></v-divider>
         <v-card-text class="pb-0" style="position: relative;">
-            <v-btn
-                v-if="is_edit"
-                @click.prevent="is_edit = false"
-                color="primary"
-                class="mr-15"
-                absolute
-                top
-                right
-                small
-                fab
-            >
-                <v-icon>mdi-check</v-icon>
-            </v-btn>
-            <v-btn
-                @click.prevent="is_edit = !is_edit"
-                :color="is_edit ? '' : 'primary'"
-                absolute
-                top
-                right
-                small
-                fab
-            >
-                <v-icon>{{ is_edit ? 'mdi-close' : 'mdi-pencil' }}</v-icon>
-            </v-btn>
+            <div v-if="this.$auth.user && profile.id === this.$auth.user.id">
+                <v-btn
+                    v-if="is_edit"
+                    @click.prevent="is_edit = false"
+                    color="primary"
+                    class="mr-15"
+                    absolute
+                    top
+                    right
+                    small
+                    fab
+                >
+                    <v-icon>mdi-check</v-icon>
+                </v-btn>
+                <v-btn
+                    @click.prevent="is_edit = !is_edit"
+                    :color="is_edit ? '' : 'primary'"
+                    absolute
+                    top
+                    right
+                    small
+                    fab
+                >
+                    <v-icon>{{ is_edit ? 'mdi-close' : 'mdi-pencil' }}</v-icon>
+                </v-btn>
+            </div>
             <p v-if="!is_edit" class="mb-6">{{ profile.description }}</p>
             <v-textarea
                 v-if="is_edit"
