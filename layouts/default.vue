@@ -59,10 +59,41 @@
         <v-main
             :style="on_mobile ? 'padding-left: 0' : ''"
         >
-            <v-container>
+            <v-container class="mb-13 mb-md-0">
                 <Nuxt/>
             </v-container>
         </v-main>
+        <v-bottom-navigation
+            fixed
+            shift
+            color="primary"
+            class="d-flex d-md-none"
+            grow
+        >
+            <v-btn
+                :to="localePath('/')"
+                exact
+            >
+                <span>{{$t('general.home')}}</span>
+                <v-icon>mdi-apps</v-icon>
+            </v-btn>
+
+            <v-btn
+                v-if="this.$auth.loggedIn"
+                :to="localePath('/user/me')"
+            >
+                <span>{{ $t('general.profile') }}</span>
+                <v-icon>mdi-account</v-icon>
+            </v-btn>
+
+            <v-btn
+                :value="settings_panel"
+                @click.stop="settings_panel = !settings_panel"
+            >
+                <span>{{$t('general.settings.setting')}}</span>
+                <v-icon>mdi-cog</v-icon>
+            </v-btn>
+        </v-bottom-navigation>
         <SettingDialog v-model="settings_panel"/>
         <UserLoginForm
             v-model="login_panel"
