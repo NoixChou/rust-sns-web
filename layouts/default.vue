@@ -4,64 +4,26 @@
             mini-variant
             app
             permanent
+            bottom
             class="d-none d-md-flex"
         >
-            <v-list>
-                <v-tooltip
-                    v-for="(item, i) in items"
-                    :key="i"
-                    right
-                >
-                    <template v-slot:activator="{ on, attrs }">
-                        <v-list-item
-                            v-on="on"
-                            v-bind="attrs"
-                            :to="localePath(item.to)"
-                            router
-                            exact
-                        >
-                            <v-list-item-action>
-                                <v-icon>{{ item.icon }}</v-icon>
-                            </v-list-item-action>
-                            <v-list-item-content>{{ $t(item.title) }}</v-list-item-content>
-                        </v-list-item>
-                    </template>
-                    {{ $t(item.title) }}
-                </v-tooltip>
-                <v-tooltip right v-if="this.$auth.loggedIn">
-                    <template v-slot:activator="{ on, attrs }">
-                        <v-list-item
-                            v-on="on"
-                            v-bind="attrs"
-                            :to="localePath('/user/me')"
-                            router
-                            exact
-                        >
-                            <v-list-item-action>
-                                <v-icon>mdi-account</v-icon>
-                            </v-list-item-action>
-                            <v-list-item-content>{{ $t('general.profile') }}</v-list-item-content>
-                        </v-list-item>
-                    </template>
-                    {{ $t('general.profile') }}
-                </v-tooltip>
-                <v-tooltip right>
-                    <template v-slot:activator="{ on, attrs }">
-                        <v-list-item
-                            v-on="on"
-                            v-bind="attrs"
-                            @click.stop="settings_panel = !settings_panel"
-                            router
-                            exact
-                        >
-                            <v-list-item-action>
-                                <v-icon>mdi-cog</v-icon>
-                            </v-list-item-action>
-                            <v-list-item-content>{{ $t('general.settings.setting') }}</v-list-item-content>
-                        </v-list-item>
-                    </template>
-                    {{ $t('general.settings.setting') }}
-                </v-tooltip>
+            <v-list nav>
+                <NavListItemWithTooltip
+                    :to="localePath('/')"
+                    icon="mdi-apps"
+                    :text="$t('general.home')"
+                />
+                <NavListItemWithTooltip
+                    v-if="this.$auth.loggedIn"
+                    :to="localePath('/user/me')"
+                    icon="mdi-account"
+                    :text="$t('general.profile')"
+                />
+                <NavListItemWithTooltip
+                    @on="settings_panel = !settings_panel"
+                    icon="mdi-cog"
+                    :text="$t('general.settings.setting')"
+                />
             </v-list>
         </v-navigation-drawer>
         <v-app-bar
@@ -118,18 +80,12 @@
 
 import userApi from '@/plugins/axios/modules/user'
 import SettingDialog from "@/layouts/SettingDialog";
+import NavListItemWithTooltip from "@/layouts/NavListItemWithTooltip";
 
 export default {
-    components: {SettingDialog},
+    components: {NavListItemWithTooltip, SettingDialog},
     data() {
         return {
-            items: [
-                {
-                    icon: 'mdi-apps',
-                    title: 'general.home',
-                    to: '/',
-                },
-            ],
             settings_panel: false,
             login_panel: false,
             register_panel: false,
