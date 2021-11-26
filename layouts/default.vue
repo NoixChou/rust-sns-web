@@ -23,10 +23,10 @@
                             <v-list-item-action>
                                 <v-icon>{{ item.icon }}</v-icon>
                             </v-list-item-action>
-                            <v-list-item-content>{{ item.title }}</v-list-item-content>
+                            <v-list-item-content>{{ $t(item.title) }}</v-list-item-content>
                         </v-list-item>
                     </template>
-                    {{ item.title }}
+                    {{ $t(item.title) }}
                 </v-tooltip>
                 <v-tooltip right v-if="this.$auth.loggedIn">
                     <template v-slot:activator="{ on, attrs }">
@@ -101,33 +101,7 @@
                 <Nuxt/>
             </v-container>
         </v-main>
-        <v-dialog
-            v-model="settings_panel"
-            fullscreen
-            hide-overlay
-            transition="dialog-bottom-transition"
-        >
-            <v-card>
-                <v-toolbar color="primary">
-                    <v-btn
-                        icon
-                        @click.stop="settings_panel = false"
-                    >
-                        <v-icon>mdi-arrow-left</v-icon>
-                    </v-btn>
-                </v-toolbar>
-                <v-list>
-                    <v-list-item>
-                        <v-switch
-                            v-model="$vuetify.theme.dark"
-                            prepend-icon="mdi-white-balance-sunny"
-                            append-icon="mdi-moon-waning-crescent"
-                            color="white"
-                        ></v-switch>
-                    </v-list-item>
-                </v-list>
-            </v-card>
-        </v-dialog>
+        <SettingDialog v-model="settings_panel"/>
         <UserLoginForm
             v-model="login_panel"
             :fullscreen="on_mobile"
@@ -143,14 +117,16 @@
 <script>
 
 import userApi from '@/plugins/axios/modules/user'
+import SettingDialog from "@/layouts/SettingDialog";
 
 export default {
+    components: {SettingDialog},
     data() {
         return {
             items: [
                 {
                     icon: 'mdi-apps',
-                    title: this.$t('general.home'),
+                    title: 'general.home',
                     to: '/',
                 },
             ],
