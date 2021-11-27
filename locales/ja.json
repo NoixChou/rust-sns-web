@@ -41,7 +41,10 @@
         "website": "ホームページ",
         "private": "非公開アカウント",
         "public_description": "誰でもプロフィール、投稿、誕生日を見ることができます。",
-        "private_description": "相互フォローしている人しかプロフィール、投稿、誕生日を見ることができません。"
+        "private_description": "相互フォローしている人しかプロフィール、投稿、誕生日を見ることができません。",
+        "messages": {
+            "profile_not_created": "先にプロフィールを作成してください！"
+        }
     },
     "post": {
         "post": "投稿",

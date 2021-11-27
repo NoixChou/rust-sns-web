@@ -14,7 +14,17 @@
             <v-btn class="loading-text" disabled plain><span>{{ $t('profile.follower') }}</span></v-btn>
         </v-card-actions>
     </v-card>
-    <NotFoundWithSearch v-else-if="status === 404"/>
+    <v-card v-else-if="status === 404 && this.$auth.loggedIn && user_id === 'me'">
+        <v-card-title>Not Found</v-card-title>
+        <v-card-text>
+            <v-container>
+                <v-row justify="center">
+                    <h3>{{ $t('profile.messages.profile_not_created') }}</h3>
+                </v-row>
+            </v-container>
+        </v-card-text>
+    </v-card>
+    <NotFoundWithSearch v-else-if="status === 404 || status === 401"/>
     <v-card v-else-if="status !== 200 || !!!profile">
         <v-card-title>Error</v-card-title>
     </v-card>
