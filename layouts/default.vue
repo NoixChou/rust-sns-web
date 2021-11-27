@@ -34,6 +34,18 @@
             <v-toolbar-title v-text="title"/>
             <v-spacer/>
             <v-btn
+                v-if="this.$auth.loggedIn"
+                right
+                bottom
+                color="primary"
+                class="d-none d-md-block"
+                @click.stop.prevent="post_panel = !post_panel"
+            >
+                <v-icon>mdi-plus</v-icon>
+                <span>{{$t('post.post')}}</span>
+            </v-btn>
+            <v-spacer/>
+            <v-btn
                 outlined
                 @click.stop="login_panel = !login_panel"
                 v-if="!this.$auth.loggedIn"
@@ -63,6 +75,18 @@
                 <Nuxt/>
             </v-container>
         </v-main>
+        <v-btn
+            v-if="this.$auth.loggedIn"
+            fixed
+            fab
+            right
+            bottom
+            color="primary"
+            class="d-md-none mb-13"
+            @click.stop.prevent="post_panel = !post_panel"
+        >
+            <v-icon>mdi-plus</v-icon>
+        </v-btn>
         <v-bottom-navigation
             fixed
             shift
@@ -95,6 +119,10 @@
             </v-btn>
         </v-bottom-navigation>
         <SettingDialog v-model="settings_panel"/>
+        <CreatePostForm
+            v-model="post_panel"
+            :fullscreen="on_mobile"
+        />
         <UserLoginForm
             v-model="login_panel"
             :fullscreen="on_mobile"
@@ -120,6 +148,7 @@ export default {
             settings_panel: false,
             login_panel: false,
             register_panel: false,
+            post_panel: false,
             title: this.$t('general.title'),
             on_mobile: this.isMobileWidth(window.innerWidth),
         }

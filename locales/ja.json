@@ -52,6 +52,8 @@
         "reply": "返信",
         "like": "お気に入り",
         "other": "その他",
+        "content": "本文",
+        "draft": "下書き",
         "nothing": "まだ何も投稿していません"
     },
     "account": {

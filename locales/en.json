@@ -52,6 +52,8 @@
         "reply": "Reply",
         "like": "Favorite",
         "other": "Other",
+        "content": "Contents",
+        "draft": "Draft",
         "nothing": "This user has not posted yet."
     },
     "account": {
