@@ -10,10 +10,9 @@ export default {
     async fetchPost(id) {
         return await axios.$get('/api/posts/' + id)
     },
-    async fetchPostsByUser(user_id) {
-        return await axios.$get('/api/users/' + user_id + '/posts')
-    },
-    async fetchMyPosts() {
-        return await axios.$get('/api/users/me/posts')
-    },
+    async fetchPostsByUser(user_id, pagination) {
+        return await axios.$get('/api/users/' + user_id + '/posts', {
+            params: pagination
+        })
+    }
 }

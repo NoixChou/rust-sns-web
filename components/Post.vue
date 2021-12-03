@@ -107,6 +107,14 @@ export default {
         prefetched_user: {},
         header_divide: Boolean,
     },
+    watch: {
+        prefetched_post(v) {
+            this.post = v;
+        },
+        prefetched_user(v) {
+            this.user = v;
+        }
+    },
     async fetch() {
         if (!!this.prefetched_post) {
             this.status = 200;
