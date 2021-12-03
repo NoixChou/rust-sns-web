@@ -54,7 +54,10 @@
         "other": "その他",
         "content": "本文",
         "draft": "下書き",
-        "nothing": "まだ何も投稿していません"
+        "nothing": "まだ何も投稿していません",
+        "messages": {
+            "show_new_posts": "{0}件の新規投稿を見る"
+        }
     },
     "account": {
         "login": "ログイン",

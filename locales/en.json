@@ -54,7 +54,10 @@
         "other": "Other",
         "content": "Contents",
         "draft": "Draft",
-        "nothing": "This user has not posted yet."
+        "nothing": "This user has not posted yet.",
+        "messages": {
+            "show_new_posts": "See {0} new posts"
+        }
     },
     "account": {
         "login": "Login",

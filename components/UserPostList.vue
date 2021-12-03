@@ -2,7 +2,20 @@
     <v-card v-if="status === 200 || status === 0" :loading="status !== 200">
         <v-card-title class="text-body-1">{{ $t('post.posts') }}</v-card-title>
         <v-divider></v-divider>
-        <div v-if="posts.length > 0" ref="post_list">
+        <div v-if="posts.length > 0">
+            <transition name="show-new-posts">
+                <v-card
+                    v-if="new_posts.length > 0"
+                    color="accent"
+                    tile
+                    elevation="0"
+                    @click.stop="showNewPosts"
+                >
+                    <v-card-text class="text-center text-body-2">
+                        {{ $t('post.messages.show_new_posts', [new_posts.length]) }}
+                    </v-card-text>
+                </v-card>
+            </transition>
             <PostList
                 :posts="posts"
             />
@@ -31,6 +44,8 @@ export default {
         return {
             status: 0,
             posts: [],
+            new_posts: [],
+            latest_post_id: null,
             is_loading_older_post: false,
             is_loaded_oldest_post: false,
             polling_interval_handle: null
@@ -67,23 +82,27 @@ export default {
     },
     methods: {
         onScroll() {
-            const on_bottom = window.scrollY >= (document.documentElement.offsetHeight - window.innerHeight);
+            const on_bottom = window.scrollY >= (document.documentElement.offsetHeight - window.innerHeight - 20);
             if (!this.is_loaded_oldest_post && !this.is_loading_older_post && on_bottom) {
                 this.is_loading_older_post = true;
                 this.fetchOlderPosts();
             }
         },
+        showNewPosts() {
+            this.posts = this.new_posts.concat(this.posts);
+            this.new_posts = [];
+        },
         async fetchNewerPosts() {
-            let latest_id = null;
-            if (this.posts.length > 0) {
-                latest_id = this.posts[0].post.id;
+            if (this.posts.length > 0 && !this.latest_post_id) {
+                this.latest_post_id = this.posts[0].post.id;
             }
 
-            postApi.fetchPostsByUser(this.user_id, {latest_post_id: latest_id})
+            postApi.fetchPostsByUser(this.user_id, {latest_post_id: this.latest_post_id})
                 .then(response => {
                     this.status = 200;
                     if (response.posts.length > 0) {
-                        this.posts = response.posts.concat(this.posts);
+                        this.new_posts = response.posts.concat(this.new_posts);
+                        this.latest_post_id = this.new_posts[0].post.id;
                     }
                 }).catch(e => {
                     this.status = e.response.status;
@@ -114,6 +133,13 @@ export default {
 }
 </script>
 
+<!--suppress CssUnusedSymbol -->
 <style scoped>
+.show-new-posts-enter-active, .show-new-posts-leave-active {
+    transition: opacity .5s;
+}
+.show-new-posts-enter, .fade-leave-to {
+    opacity: 0;
+}
 
 </style>
